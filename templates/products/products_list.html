@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Products | Maehak Beauty Saloon
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h1>
+                Beauty Products
+            </h1>
+
+            <p class="text-muted">
+                Explore our beauty collection
+            </p>
+
+        </div>
+
+        {% for category in categories %}
+
+            <h2 class="mb-4">
+                {{ category.name }}
+            </h2>
+
+            <div class="row">
+
+                {% for product in category.products.all %}
+
+                    <div class="col-md-3 mb-4">
+
+                        <div class="card h-100 shadow-sm">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    class="card-img-top"
+                                    alt="{{ product.name }}"
+                                    style="height:250px; object-fit:cover;"
+                                >
+
+                            {% endif %}
+
+                            <div class="card-body">
+
+                                <h5>
+                                    {{ product.name }}
+                                </h5>
+
+                                <p class="text-muted">
+                                    {{ product.brand }}
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <strong>
+                                        Rs. {{ product.price }}
+                                    </strong>
+
+                                    {% if product.in_stock %}
+
+                                        <span class="badge bg-success">
+                                            In Stock
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-danger">
+                                            Out
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <p>
+                        No products added.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                No categories added.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

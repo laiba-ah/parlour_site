@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manage Bookings
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page py-4">
+
+    <div class="container">
+
+        <div class="dashboard-header mb-4">
+
+            <div>
+                <p>Dashboard</p>
+
+                <h1>
+                    Manage Bookings
+                </h1>
+            </div>
+
+        </div>
+
+        <div class="dashboard-panel">
+
+            {% for booking in bookings %}
+
+                <div class="booking-row">
+
+                    <div>
+
+                        <h5>
+                            {{ booking.customer_name }}
+                        </h5>
+
+                        <p>
+                            {{ booking.get_event_type_display }}
+                            •
+                            {{ booking.date }}
+                            •
+                            {{ booking.time_slot }}
+                        </p>
+
+                        <small>
+                            {{ booking.phone }}
+                        </small>
+
+                    </div>
+
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+                        <div class="booking-status {{ booking.status }}">
+                            {{ booking.get_status_display }}
+                        </div>
+
+                        <a
+                            href="/dashboard/bookings/{{ booking.id }}/confirm/"
+                            class="btn btn-success btn-sm"
+                        >
+                            Confirm
+                        </a>
+
+                        <a
+                            href="/dashboard/bookings/{{ booking.id }}/cancel/"
+                            class="btn btn-danger btn-sm"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted">
+                    No bookings found.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Reserve Booking | Maehak Beauty Saloon
+{% endblock %}
+
+{% block content %}
+
+<section class="booking-page py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <p class="booking-label">
+                Wedding Reservations
+            </p>
+
+            <h1 class="booking-title">
+                Reserve Your Booking
+            </h1>
+
+            <p class="booking-subtitle">
+                Online reservations are available for bridal,
+                party and wedding event bookings only.
+            </p>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="booking-card">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Full Name
+                                </label>
+
+                                {{ form.customer_name }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Phone Number
+                                </label>
+
+                                {{ form.phone }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Email Address
+                                </label>
+
+                                {{ form.email }}
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Event Type
+                                </label>
+
+                                {{ form.event_type }}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    Select Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="date-picker"
+                                    class="form-control booking-input"
+                                >
+
+                                {{ form.date }}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label mb-3">
+                                    Available Slots
+                                </label>
+
+                                <div id="slots-grid" class="slots-grid">
+
+                                </div>
+
+                                {{ form.time_slot }}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    Extra Details
+                                </label>
+
+                                {{ form.notes }}
+
+                            </div>
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-dark booking-btn"
+                                    id="booking-submit"
+                                    disabled
+                                >
+                                    Confirm Reservation
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="{% static 'js/booking.js' %}"></script>
+
+{% endblock %}

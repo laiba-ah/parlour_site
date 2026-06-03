@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Services | Maehak Beauty Saloon
+{% endblock %}
+
+{% block content %}
+
+<section class="services-page py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <p class="services-label">
+                SERVICES & PRICES
+            </p>
+
+            <h1 class="services-title">
+                Beauty Services Menu
+            </h1>
+
+            <p class="services-subtitle">
+                Services are shown for information only.
+                For booking, details or custom queries, contact us on WhatsApp.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for service in services %}
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="service-card">
+
+                        {% if service.image %}
+
+                            <img
+                                src="{{ service.image.url }}"
+                                class="service-card-image"
+                                alt="{{ service.name }}"
+                            >
+
+                        {% endif %}
+
+                        <div class="service-card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+
+                                <div>
+
+                                    <h4>
+                                        {{ service.name }}
+                                    </h4>
+
+                                    {% if service.description %}
+
+                                        <p>
+                                            {{ service.description }}
+                                        </p>
+
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="service-price-tag">
+
+                                    Rs. {{ service.price }}
+
+                                </div>
+
+                            </div>
+
+                            <div class="service-bottom">
+
+                                <span>
+                                    {{ service.duration_minutes }} mins
+                                </span>
+
+                                <a
+                                    href="https://wa.me/923001234567"
+                                    target="_blank"
+                                    class="btn btn-dark btn-sm"
+                                >
+                                    WhatsApp
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-center text-muted">
+                    No services added yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="service-whatsapp-box text-center mt-5">
+
+            <h3>
+                Need details about any service?
+            </h3>
+
+            <p>
+                Contact us on WhatsApp for timing, package details or custom service queries.
+            </p>
+
+            <a
+                href="https://wa.me/923001234567"
+                target="_blank"
+                class="btn btn-dark px-5 py-3"
+            >
+                Contact on WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manage Services
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page py-4">
+
+    <div class="container">
+
+        <div class="dashboard-header mb-5">
+
+            <div>
+                <p>Dashboard</p>
+
+                <h1>
+                    Manage Services
+                </h1>
+            </div>
+
+        </div>
+
+
+        <!-- ADD SERVICE FORM -->
+
+        <div class="dashboard-panel mb-5">
+
+            <h3 class="mb-4">
+                Add Service
+            </h3>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Service Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="e.g. Bridal Makeup"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Price
+                        </label>
+
+                        <input
+                            type="number"
+                            name="price"
+                            class="form-control"
+                            placeholder="e.g. 3000"
+                            required
+                        >
+
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Service Image
+                        </label>
+
+                        <input
+                            type="file"
+                            name="image"
+                            class="form-control"
+                        >
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Write short service detail"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="col-12">
+
+                        <button type="submit" class="btn btn-dark px-5 py-3">
+                            Add Service
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- ALL SERVICES -->
+
+        <div class="dashboard-panel">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h3 class="mb-0">
+                    All Services
+                </h3>
+
+                <span class="text-muted">
+                    {{ services|length }} Services
+                </span>
+
+            </div>
+
+            {% for service in services %}
+
+                <div class="booking-row">
+
+                    <div class="d-flex gap-3 align-items-center">
+
+                        {% if service.image %}
+
+                            <img
+                                src="{{ service.image.url }}"
+                                width="75"
+                                height="75"
+                                style="object-fit:cover;border-radius:16px;"
+                            >
+
+                        {% endif %}
+
+                        <div>
+
+                            <h5 class="mb-1">
+                                {{ service.name }}
+                            </h5>
+
+                            <small class="text-muted">
+                                Rs. {{ service.price }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        {% if service.is_active %}
+
+                            <div class="booking-status confirmed">
+                                Active
+                            </div>
+
+                        {% else %}
+
+                            <div class="booking-status cancelled">
+                                Hidden
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted mb-0">
+                    No services added yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

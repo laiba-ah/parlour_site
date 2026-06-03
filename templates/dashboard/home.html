@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Owner Dashboard | Maehak Beauty Saloon
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-page py-4">
+
+    <div class="container">
+
+        <div class="dashboard-header mb-4">
+
+            <div>
+                <p>Owner Panel</p>
+
+                <h1>
+                    Dashboard
+                </h1>
+            </div>
+
+            <a href="/admin/" class="btn btn-dark">
+                Open Full Admin
+            </a>
+
+        </div>
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-lg-3 col-6">
+                <div class="dashboard-stat-card alert-card">
+                    <span>New</span>
+                    <h2>{{ pending_bookings }}</h2>
+                    <p>Pending Bookings</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="dashboard-stat-card">
+                    <span>Booked</span>
+                    <h2>{{ confirmed_bookings }}</h2>
+                    <p>Confirmed</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="dashboard-stat-card">
+                    <span>Store</span>
+                    <h2>{{ total_products }}</h2>
+                    <p>Products</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="dashboard-stat-card">
+                    <span>Menu</span>
+                    <h2>{{ total_services }}</h2>
+                    <p>Services</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dashboard-actions mb-4">
+
+            <a href="/dashboard/bookings/" class="dashboard-action">
+    🔔 View Bookings
+</a>
+<a href="/dashboard/products/" class="dashboard-action">
+    🛍 Manage Products
+</a>
+
+<a href="/dashboard/services/" class="dashboard-action">
+    💄 Manage Services
+</a>
+            <a href="/admin/" class="dashboard-action">
+                ⚙ Full Admin
+            </a>
+
+        </div>
+
+        <div class="dashboard-panel">
+
+            <div class="panel-title">
+
+                <h3>
+                    Recent Booking Requests
+                </h3>
+
+                <span>
+                    Latest 5
+                </span>
+
+            </div>
+
+            {% for booking in recent_bookings %}
+
+                <div class="booking-row">
+
+                    <div>
+
+                        <h5>
+                            {{ booking.customer_name }}
+                        </h5>
+
+                        <p>
+                            {{ booking.get_event_type_display }} • {{ booking.date }} • {{ booking.time_slot }}
+                        </p>
+
+                        <small>
+                            {{ booking.phone }}
+                        </small>
+
+                    </div>
+
+                    <div class="booking-status {{ booking.status }}">
+                        {{ booking.get_status_display }}
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted">
+                    No booking requests yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
